@@ -103,7 +103,7 @@ const Particles: React.FC<ParticlesProps> = ({
   quantity = 100,
   staticity = 50,
   ease = 50,
-  size = 0.4,
+  size = 1.0,
   refresh = false,
   color = "#ffffff",
   vx = 0,
@@ -117,6 +117,7 @@ const Particles: React.FC<ParticlesProps> = ({
   const mouse = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const canvasSize = useRef<{ w: number; h: number }>({ w: 0, h: 0 });
   const animationId = useRef<number>(0);
+  const lastTime = useRef<number>(0);
   const dpr = typeof window !== "undefined" ? window.devicePixelRatio : 1;
 
   const onMouseMove = useCallback(() => {
@@ -140,53 +141,60 @@ const Particles: React.FC<ParticlesProps> = ({
   }, [quantity]);
 
   const animate = useCallback(() => {
-    clearContext();
-    circles.current.forEach((circle: Circle, i: number) => {
-      // Handle the alpha value
-      const edge = [
-        circle.x + circle.translateX - circle.size, // distance from left edge
-        canvasSize.current.w - circle.x - circle.translateX - circle.size, // distance from right edge
-        circle.y + circle.translateY - circle.size, // distance from top edge
-        canvasSize.current.h - circle.y - circle.translateY - circle.size, // distance from bottom edge
-      ];
-      const closestEdge = edge.reduce((a, b) => Math.min(a, b));
-      const remapClosestEdge = parseFloat(
-        remapValue(closestEdge, 0, 20, 0, 1).toFixed(2),
-      );
-      if (remapClosestEdge > 1) {
-        circle.alpha += 0.02;
-        if (circle.alpha > circle.targetAlpha) {
-          circle.alpha = circle.targetAlpha;
+    const now = Date.now();
+    const fps = 30;
+    const interval = 1000 / fps;
+    
+    if (now - lastTime.current >= interval) {
+      clearContext();
+      circles.current.forEach((circle: Circle, i: number) => {
+        // Handle the alpha value
+        const edge = [
+          circle.x + circle.translateX - circle.size, // distance from left edge
+          canvasSize.current.w - circle.x - circle.translateX - circle.size, // distance from right edge
+          circle.y + circle.translateY - circle.size, // distance from top edge
+          canvasSize.current.h - circle.y - circle.translateY - circle.size, // distance from bottom edge
+        ];
+        const closestEdge = edge.reduce((a, b) => Math.min(a, b));
+        const remapClosestEdge = parseFloat(
+          remapValue(closestEdge, 0, 20, 0, 1).toFixed(2),
+        );
+        if (remapClosestEdge > 1) {
+          circle.alpha += 0.02;
+          if (circle.alpha > circle.targetAlpha) {
+            circle.alpha = circle.targetAlpha;
+          }
+        } else {
+          circle.alpha = circle.targetAlpha * remapClosestEdge;
         }
-      } else {
-        circle.alpha = circle.targetAlpha * remapClosestEdge;
-      }
-      circle.x += circle.dx + vx;
-      circle.y += circle.dy + vy;
-      circle.translateX +=
-        (mouse.current.x / (staticity / circle.magnetism) - circle.translateX) /
-        ease;
-      circle.translateY +=
-        (mouse.current.y / (staticity / circle.magnetism) - circle.translateY) /
-        ease;
+        circle.x += circle.dx + vx;
+        circle.y += circle.dy + vy;
+        circle.translateX +=
+          (mouse.current.x / (staticity / circle.magnetism) - circle.translateX) /
+          ease;
+        circle.translateY +=
+          (mouse.current.y / (staticity / circle.magnetism) - circle.translateY) /
+          ease;
 
-      drawCircle(circle, true);
+        drawCircle(circle, true);
 
-      // circle gets out of the canvas
-      if (
-        circle.x < -circle.size ||
-        circle.x > canvasSize.current.w + circle.size ||
-        circle.y < -circle.size ||
-        circle.y > canvasSize.current.h + circle.size
-      ) {
-        // remove the circle from the array
-        circles.current.splice(i, 1);
-        // create a new circle
-        const newCircle = circleParams();
-        drawCircle(newCircle);
-        // update the circle position
-      }
-    });
+        // circle gets out of the canvas
+        if (
+          circle.x < -circle.size ||
+          circle.x > canvasSize.current.w + circle.size ||
+          circle.y < -circle.size ||
+          circle.y > canvasSize.current.h + circle.size
+        ) {
+          // remove the circle from the array
+          circles.current.splice(i, 1);
+          // create a new circle
+          const newCircle = circleParams();
+          drawCircle(newCircle);
+          // update the circle position
+        }
+      });
+      lastTime.current = now;
+    }
     animationId.current = window.requestAnimationFrame(animate);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ease, staticity, vx, vy]);
@@ -234,7 +242,7 @@ const Particles: React.FC<ParticlesProps> = ({
     const translateY = 0;
     const pSize = Math.floor(Math.random() * 2) + size;
     const alpha = 0;
-    const targetAlpha = parseFloat((Math.random() * 0.6 + 0.1).toFixed(1));
+    const targetAlpha = parseFloat((Math.random() * 0.4 + 0.3).toFixed(1));
     const dx = (Math.random() - 0.5) * 0.1;
     const dy = (Math.random() - 0.5) * 0.1;
     const magnetism = 0.1 + Math.random() * 4;
@@ -260,7 +268,12 @@ const Particles: React.FC<ParticlesProps> = ({
       context.current.save();
       context.current.translate(translateX, translateY);
       context.current.globalAlpha = alpha;
-      context.current.fillStyle = `rgb(${rgb.join(", ")})`;
+      
+      // Use theme-aware colors for better visibility
+      const isDark = document.documentElement.classList.contains('dark');
+      const particleColor = isDark ? `rgb(${rgb.join(", ")})` : `rgb(100, 100, 100)`;
+      context.current.fillStyle = particleColor;
+      
       context.current.beginPath();
       context.current.arc(x, y, size, 0, 2 * Math.PI);
       context.current.fill();
@@ -295,7 +308,7 @@ const Particles: React.FC<ParticlesProps> = ({
 
   return (
     <div
-      className={cn("pointer-events-none", className)}
+      className={cn("pointer-events-none absolute inset-0 -z-10", className)}
       ref={canvasContainerRef}
       aria-hidden="true"
     >

@@ -7,7 +7,7 @@ export const PERSONAL_INFO = {
   email: "javier@munozsolano.com",
   github: "https://github.com/JBibu",
   linkedin: "https://linkedin.com/in/jbibu",
-  avatar: "/avatar.jpg",
+  avatar: "/avatar-optimized.jpg",
 } as const;
 
 // Navigation Configuration
@@ -16,7 +16,7 @@ export const NAVBAR_CONFIG = {
     url: "/",
     src: "/favicon.ico",
     alt: "Portfolio Logo",
-    title: "Javi Dev.",
+    title: "Javi dev.",
   },
   menu: [
     { title: "Home", url: "#home" },
