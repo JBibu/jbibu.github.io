@@ -1,7 +1,7 @@
 import { AcrylicNavbar } from "@/components/acrylic-navbar";
 import { Hero } from "@/components/hero";
-import { Banner } from "@/components/banner";
 import { lazy, Suspense } from "react";
+import { Banner } from "@/components/banner";
 
 // Lazy load components that are below the fold
 const About = lazy(() => import("@/components/about").then(module => ({ default: module.About })));
@@ -20,8 +20,8 @@ const SectionLoader = () => (
 export default function HomePage() {
   return (
     <main className="min-h-screen mx-auto">
-      <Banner />
       <AcrylicNavbar />
+      <Banner />
       <Hero />
       <Suspense fallback={<SectionLoader />}>
         <About />
