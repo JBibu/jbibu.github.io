@@ -77,7 +77,7 @@ export const Contact = () => {
         setSubmitMessage('');
       }, 3000);
       
-    } catch (error) {
+    } catch {
       setSubmitMessage('Error opening email client. Please try again.');
     } finally {
       setIsSubmitting(false);
@@ -93,7 +93,7 @@ export const Contact = () => {
               Get In Touch
             </h2>
             <p className="max-w-[600px] text-muted-foreground md:text-xl animate-fade-in-up animation-delay-300">
-              I'm always open to discussing new opportunities, interesting projects, and collaborations.
+              I&apos;m always open to discussing new opportunities, interesting projects, and collaborations.
             </p>
           </div>
         </div>
@@ -102,7 +102,7 @@ export const Contact = () => {
           {/* Contact Information Card */}
           <Card className="hover:scale-105 transition-all duration-300 hover:shadow-lg animate-fade-in-left animation-delay-400">
             <CardHeader className="text-center">
-              <CardTitle className="text-2xl">Let's Connect</CardTitle>
+              <CardTitle className="text-2xl">Let&apos;s Connect</CardTitle>
               <p className="text-muted-foreground">
                 Ready to start a conversation? Reach out through any of these channels.
               </p>
@@ -204,7 +204,7 @@ export const Contact = () => {
             <CardHeader className="text-center">
               <CardTitle className="text-2xl">Send a Message</CardTitle>
               <p className="text-muted-foreground">
-                Fill out the form below and I'll get back to you soon
+                Fill out the form below and I&apos;ll get back to you soon
               </p>
             </CardHeader>
             <CardContent>
@@ -304,7 +304,7 @@ export const Contact = () => {
 
               <div className="pt-4 mt-4 border-t">
                 <div className="bg-muted/50 rounded-lg p-4">
-                  <h4 className="font-medium mb-2">What I'm looking for:</h4>
+                  <h4 className="font-medium mb-2">What I&apos;m looking for:</h4>
                   <div className="flex flex-wrap gap-2">
                     <Badge variant="secondary" className="hover:scale-110 transition-transform cursor-default">
                       Web Development

@@ -14,7 +14,7 @@ export const About = () => {
               About Me
             </h2>
             <p className="text-muted-foreground md:text-lg">
-              I'm a passionate system administrator and web developer who enjoys building things that work well. 
+              I&apos;m a passionate system administrator and web developer who enjoys building things that work well. 
               Currently studying Web Application Development and working part-time managing IT infrastructure.
             </p>
             <p className="text-muted-foreground md:text-lg">
