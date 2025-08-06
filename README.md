@@ -1,4 +1,4 @@
-![portfolio-banner](https://github.com/user-attachments/assets/6cb88ef4-aed5-4798-a9f2-4db2b2ec59c4)
+![portfolio-banner](https://github.com/user-attachments/assets/ae3da1e5-3893-4910-9c09-b9c76f5b4213)
 
 # Next.js portfolio website
 
