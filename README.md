@@ -33,7 +33,7 @@ Edit your info in `lib/constants.ts`:
 - **Next.js** - React framework
 - **TypeScript** - Type safety
 - **Tailwind CSS** - Styling
-- **Radix UI** - UI components  
+- **Shadcn/ui** - UI components  
 - **Lucide React** - Icons
 
 ## Features
