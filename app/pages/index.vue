@@ -2,7 +2,6 @@
 const siteUrl = 'https://jbibu.xyz'
 const siteTitle = 'Javier Muñoz Solano — Web Developer & Systems Administrator'
 const siteDescription = 'Web developer and systems administrator from Murcia, Spain. Linux infrastructure, Docker, AWS and AI-driven tooling. Currently at C3i Servicios Informáticos.'
-const ogImage = `${siteUrl}/avatar-optimized.jpg`
 
 useSeoMeta({
   title: siteTitle,
@@ -15,14 +14,9 @@ useSeoMeta({
   ogUrl: siteUrl,
   ogLocale: 'en_US',
   ogSiteName: 'Javier Muñoz Solano',
-  ogImage,
-  ogImageWidth: 400,
-  ogImageHeight: 400,
-  ogImageAlt: 'Javier Muñoz Solano',
   twitterCard: 'summary',
   twitterTitle: siteTitle,
   twitterDescription: siteDescription,
-  twitterImage: ogImage,
 })
 
 useHead({
