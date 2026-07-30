@@ -206,18 +206,7 @@ useScrollReveal(contact, '[data-contact] > *', {
         Murcia, Spain / 2026
       </div>
 
-      <div data-hero-content class="flex items-end pt-24 md:hidden">
-        <img
-          data-hero-fade
-          src="/avatar-optimized.jpg"
-          alt="Javier Muñoz Solano"
-          width="400"
-          height="400"
-          class="aspect-[4/3] w-full max-w-xs rounded-sm object-cover"
-        >
-      </div>
-
-      <div data-hero-content class="flex flex-col justify-end md:col-span-7">
+      <div data-hero-content class="flex flex-col justify-end pt-24 md:col-span-7 md:pt-0">
         <div class="overflow-hidden">
           <h1 class="font-serif text-[clamp(3rem,10vw,8rem)] leading-none tracking-tight pt-[0.15em] pb-[0.1em]">
             <span
@@ -253,17 +242,21 @@ useScrollReveal(contact, '[data-contact] > *', {
             <span class="font-mono text-[10px] uppercase tracking-widest">Scroll</span>
           </div>
         </div>
-      </div>
 
-      <div data-hero-content class="hidden items-end justify-end md:col-span-5 md:flex">
-        <img
+        <!-- Under-construction notice -->
+        <div
           data-hero-fade
-          src="/avatar-optimized.jpg"
-          alt="Javier Muñoz Solano"
-          width="400"
-          height="400"
-          class="aspect-[3/4] w-full max-w-sm rounded-sm object-cover"
+          role="status"
+          class="mt-10 flex w-fit items-center gap-3 rounded-lg border border-border bg-card/60 px-4 py-3 backdrop-blur-sm"
         >
+          <span class="relative flex h-2 w-2 shrink-0">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-60" />
+            <span class="relative inline-flex h-2 w-2 rounded-full bg-amber-400" />
+          </span>
+          <span class="font-mono text-[10px] uppercase leading-relaxed tracking-widest text-muted-foreground">
+            Work in progress — some sections are still being built
+          </span>
+        </div>
       </div>
     </section>
 
